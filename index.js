@@ -104,9 +104,13 @@ res.write(`
 
                     <div class="mb-3">
                         <label class="form-label" for="senha">Senha</label>
-                        <input type="password" class="form-control" placeholder="Password" maxlength="30" id="senha" name="senha">
+                        <input type="password" class="form-control" placeholder="Senha" maxlength="30" id="senha" name="senha">
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label" for="confirmasenha">Confirme a senha</label>
+                        <input type="password" class="form-control" placeholder="Confirme a senha" maxlength="30" id="confirmasenha" name="confirmasenha">
+                    </div>
                     <button type="submit" class="btn-submit">Cadastrar</button>
 
                     <button type="button" 
@@ -118,7 +122,8 @@ res.write(`
 
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+            </script>
 
             </body>
             </html>
@@ -130,6 +135,24 @@ app.post("/cadastro", (req, res) => {
     const nome=req.body.nome
     const email=req.body.email
     const senha=req.body.senha
+    const confirmasenha=req.body.confirmasenha
+
+    if(nome==""|| email==""|| senha== "")
+    {
+        res.send(`<script>alert("Preencha os todos os campos devidamente!")
+                    window.location.href="/cadastro"
+                </script>
+                `)
+        return;
+    }
+    if(senha!==confirmasenha)
+    {
+        res.send(`<script>alert("As senhas estão diferentes!");
+            window.location.href="/cadastro";
+            </script>
+        `)
+        return;
+    }
 
     listaClientes.push(
         {
