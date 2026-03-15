@@ -6,6 +6,7 @@ const porta = 3000;
 const app = express();
 app.use(express.urlencoded({extended: true}));
 var listaClientes=[];
+app.use(express.static("public"));
 
 app.get('/', (req, res) => {
     res.send('"/cadastro" para acessar a página de cadastro do cliente.');
@@ -21,8 +22,10 @@ res.write(`
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
                 <style>
-                    body {
-                        background: linear-gradient(135deg, #1e3c72, #6a11cb);
+                    body{
+                        background: linear-gradient(135deg, #388E3C, #b3b2af);
+                    }
+                    .body2 {
                         height: 100vh;
                         display: flex;
                         justify-content: center;
@@ -41,7 +44,7 @@ res.write(`
                         text-align: center;
                         margin-bottom: 30px;
                         font-weight: 600;
-                        color: #1e3c72;
+                        color: #388E3C;
                     }
 
                     .form-control {
@@ -50,14 +53,14 @@ res.write(`
                     }
 
                     .form-control:focus {
-                        border-color: #6a11cb;
-                        box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+                        border-color: rgb(46, 125, 50);
+                        box-shadow: 0 0 0 0.2rem #388E3C;
                     }
 
                     .btn-submit {
                         border: none;
                         border-radius: 25px;
-                        background: linear-gradient(90deg, #1e3c72, #6a11cb);
+                        background: linear-gradient(90deg, #388E3C, #cccccc);
                         color: white;
                         font-weight: 500;
                         padding: 10px;
@@ -72,56 +75,77 @@ res.write(`
                         border-radius: 25px;
                         width: 100%;
                         margin-top: 10px;
-                        border: 2px solid #1e3c72;
-                        color: #1e3c72;
+                        border: 2px solid #388E3C;
+                        color: #388E3C;
                         font-weight: 500;
                     }
 
                     .btn-voltar:hover {
-                        background: linear-gradient(90deg, #1e3c72, #6a11cb);
+                        background: linear-gradient(90deg, #388E3C, #b3b2af);
                         color: white;
                         border: none;
                     }
+                    .logo{
+                        width: auto;
+                        height: 100px;
+                        margin-bottom:20px;
+                    }
+                    .imagemcentro{
+                        display: flex;
+                        flex-direction:column;
+                        justify-content: center;
+                        align-items: center;
+                        padding-top:50px;
+                    } 
+                    .container-form{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    }  
                 </style>
             </head>
 
             <body>
+            <div class="body2">
+                <div class="container-form">
+                <img src="img/icon-greenup.png" alt="Logo_Green_Up" class="logo">
+                    <div class="card-return">
 
-            <div class="card-return">
+                        <h2>Cadastrar</h2>
 
-                <h2>Cadastrar</h2>
+                        <form method="POST" action="/cadastro">
+                            <div class="mb-3">
+                                <label class="form-label" for="nome">Nome</label>
+                                <input type="text" class="form-control" placeholder="Username" maxlength="30" id="nome" name="nome">
+                            </div>
 
-                <form method="POST" action="/cadastro">
-                    <div class="mb-3">
-                        <label class="form-label" for="nome">Nome</label>
-                        <input type="text" class="form-control" placeholder="Username" maxlength="30" id="nome" name="nome">
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" class="form-control" placeholder="Email" maxlength="30" id="email" name="email">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="senha">Senha</label>
+                                <input type="password" class="form-control" placeholder="Senha" maxlength="30" id="senha" name="senha">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="confirmasenha">Confirme a senha</label>
+                                <input type="password" class="form-control" placeholder="Confirme a senha" maxlength="30" id="confirmasenha" name="confirmasenha">
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">Cadastrar</button>
+
+                            <button type="button" 
+                                    class="btn btn-voltar" 
+                                    onclick="history.back()">
+                                Voltar
+                            </button>
+                        </form>
+
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="email">Email</label>
-                        <input type="email" class="form-control" placeholder="Email" maxlength="30" id="email" name="email">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="senha">Senha</label>
-                        <input type="password" class="form-control" placeholder="Senha" maxlength="30" id="senha" name="senha">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="confirmasenha">Confirme a senha</label>
-                        <input type="password" class="form-control" placeholder="Confirme a senha" maxlength="30" id="confirmasenha" name="confirmasenha">
-                    </div>
-                    <button type="submit" class="btn-submit">Cadastrar</button>
-
-                    <button type="button" 
-                            class="btn btn-voltar" 
-                            onclick="history.back()">
-                        Voltar
-                    </button>
-                </form>
-
+                </div>
             </div>
-
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
             </script>
 
@@ -178,7 +202,7 @@ app.get("/listaClientes", (req, res) => {
 
         <style>
             body {
-                background: linear-gradient(135deg, #1e3c72, #6a11cb);
+                background: linear-gradient(135deg, #388E3C, #b3b2af);
                 min-height: 100vh;
                 display: flex;
                 justify-content: center;
@@ -198,7 +222,7 @@ app.get("/listaClientes", (req, res) => {
             h2 {
                 text-align: center;
                 margin-bottom: 30px;
-                color: #1e3c72;
+                color: 388E3C;
                 font-weight: bold;
             }
 
@@ -208,7 +232,7 @@ app.get("/listaClientes", (req, res) => {
             }
 
             thead {
-                background: linear-gradient(90deg, #1e3c72, #6a11cb);
+                background: linear-gradient(90deg, #388E3C, #b3b2af);
                 color: white;
             }
 
@@ -220,7 +244,7 @@ app.get("/listaClientes", (req, res) => {
             .btn-return {
                 margin-top: 20px;
                 border-radius: 25px;
-                background: linear-gradient(90deg, #1e3c72, #6a11cb);
+                background: linear-gradient(90deg, #388E3C, #b3b2af);
                 color: white;
                 font-weight: 500;
                 border: none;
